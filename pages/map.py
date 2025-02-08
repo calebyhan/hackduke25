@@ -82,7 +82,6 @@ else:
                     get_weight="brightness",
                     opacity=0.8,
                     cell_size=100000,
-                    # radius scale by zoom
                     get_radius=10000,
                     get_color= [255, 0, 0],
                 )
