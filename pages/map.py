@@ -89,11 +89,11 @@ else:
         )
     )
 
-st.markdown(
-    """
-    Each red dot indicates an active fire. The brightness of the dot represents the intensity of the fire.
-    
-    
-    **Note:** FIRMS data is provided by [NASA's Fire Information for Resource Management System (FIRMS)](https://firms.modaps.eosdis.nasa.gov/).
-    """
-)
+    st.markdown(
+        """
+        Each red dot indicates an active fire. The brightness of the dot represents the intensity of the fire.
+
+
+        **Note:** FIRMS data is provided by [NASA's Fire Information for Resource Management System (FIRMS)](https://firms.modaps.eosdis.nasa.gov/).
+        """
+    )
