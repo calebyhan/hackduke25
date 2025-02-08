@@ -1,9 +1,9 @@
 import streamlit as st
 
-st.set_page_config(page_title="Bug Reports", page_icon="🐛")
+st.set_page_config(page_title="Search", page_icon="🔍")
 
-st.title("🐛 Bug Reports")
-st.write("Report bugs and track issues.")
+st.title("🔍 Search")
+st.write("Search functionality goes here.")
 
 hide_streamlit_style = """
     <style>
