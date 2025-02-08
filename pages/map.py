@@ -21,4 +21,5 @@ st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
 st.sidebar.page_link("pages/about.py", label="🔍 About Us")
 
 FIRMS_KEY = st.secrets["FIRMS_KEY"]
-url = "https://eonet.sci.gsfc.nasa.gov/api/v3/categories/wildfires"
+url = "https://firms.modaps.eosdis.nasa.gov/api"
+

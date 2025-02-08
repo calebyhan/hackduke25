@@ -21,6 +21,10 @@ st.sidebar.page_link("pages/info.py", label="📜 Info")
 st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
 st.sidebar.page_link("pages/about.py", label="🔍 About Us")
 
-with st.chat_message("FireBot", avatar="💬"):
+with st.chat_message("Smokey the Bear", avatar="💬"):
     st.write("I am a fire bot. heheh :D")
     st.line_chart(np.random.randn(30,3))
+
+prompt = st.chat_input("Chat with Smokey")
+if prompt:
+    st.write(f"User has sent the following prompt: {prompt}")
