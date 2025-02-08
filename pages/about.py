@@ -1,9 +1,9 @@
 import streamlit as st
 
-st.set_page_config(page_title="Wildfires", page_icon="🔥")
+st.set_page_config(page_title="About Us", page_icon="🔍")
 
-st.title("🔥 Wildfires 🔥")
-st.write("Welcome to the Streamlit App! Use the sidebar to navigate.")
+st.title("🔍 About Us")
+st.write("Report bugs and track issues.")
 
 hide_streamlit_style = """
     <style>

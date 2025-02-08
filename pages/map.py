@@ -1,9 +1,9 @@
 import streamlit as st
+import requests
 
-st.set_page_config(page_title="Wildfires", page_icon="🔥")
+st.set_page_config(page_title="Map", page_icon="️🗺")
 
-st.title("🔥 Wildfires 🔥")
-st.write("Welcome to the Streamlit App! Use the sidebar to navigate.")
+st.title("🗺 Map")
 
 hide_streamlit_style = """
     <style>
@@ -19,3 +19,6 @@ st.sidebar.page_link("pages/data.py", label="📊 Data")
 st.sidebar.page_link("pages/info.py", label="📜 Info")
 st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
 st.sidebar.page_link("pages/about.py", label="🔍 About Us")
+
+FIRMS_KEY = st.secrets["FIRMS_KEY"]
+url = "https://eonet.sci.gsfc.nasa.gov/api/v3/categories/wildfires"
