@@ -43,13 +43,11 @@ def get_firms_data(c, days):
         st.error("Failed to fetch data. Check API key or try again later.")
         return pd.DataFrame()
 
-# Fetch and display data
 df = get_firms_data(country, day_range)
 
 if not df.empty:
     st.dataframe(df)
 
-    # Download button for CSV
     csv = df.to_csv(index=False).encode("utf-8")
     st.download_button(
         label="Download Data as CSV",
