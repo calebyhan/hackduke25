@@ -3,7 +3,10 @@ import streamlit as st
 st.set_page_config(page_title="Wildfires", page_icon="🔥")
 
 st.title("🔥 Wildfires 🔥")
-st.write("Welcome to the Streamlit App! Use the sidebar to navigate.")
+st.write("Lately, wildfires have been prevalent globally, the most recent incident being the L.A. fires. "
+         "Due to the wildfires, thousands of people lost their homes and became displaced. Wildfires also pose an extreme "
+         "health threat, especially for individuals who already experience preexisting respiratory issues. "
+         "The L.A. fire is considered one of the most costly fires in U.S. history, being over $200 billion in losses.")
 
 hide_streamlit_style = """
     <style>
