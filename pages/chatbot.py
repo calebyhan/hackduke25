@@ -135,7 +135,7 @@ if option in predefined_answers and option not in ["Generate Map", "Generate Dat
 
 #Map Functionality
 elif option == "Generate Map":
-    country = st.text_input("Enter Country Name")
+    country = st.selectbox("Select a country", list(countries.values()))
     if country:
         df = get_firms_data(country, 10)
         with st.chat_message("assistant", avatar=img):
@@ -146,7 +146,7 @@ elif option == "Generate Map":
 
 #Data Functionality
 elif option == "Generate Data":
-    country = st.text_input("Enter Country Name")
+    country = st.selectbox("Select a country", list(countries.values()))
     vis = st.selectbox(
         "What would you like to learn about?",
         ("",
@@ -182,18 +182,6 @@ elif option == "Generate Data":
             st.subheader("Fire Activity by Day")
             st.bar_chart(plot_data)
 
-        on = st.toggle("Display DataFrame")
-
-        if on:
-            st.dataframe(df)
-
-        st.markdown(
-            """
-            **Note:** FIRMS data is provided by [NASA's Fire Information for Resource Management System (FIRMS)](https://firms.modaps.eosdis.nasa.gov/).
-            """
-        )
-
-# Chat input
 prompt = st.chat_input("Chat with Smokey the Bear")
 
 if prompt:
