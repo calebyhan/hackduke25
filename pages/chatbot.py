@@ -8,7 +8,7 @@ import altair as alt
 from utils import get_firms_data, countries
 
 # Set up page
-st.set_page_config(page_title="Chatbot", page_icon="💬")
+st.set_page_config(page_title="Chatbot", page_icon="💬", layout="wide")
 
 # Sidebar
 hide_streamlit_style = """
@@ -19,23 +19,19 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.sidebar.markdown("## Navigation")
-st.sidebar.page_link("main.py", label="🔥 Home")
-st.sidebar.page_link("pages/map.py", label="🗺️ Map")
-st.sidebar.page_link("pages/data.py", label="📊 Data")
-st.sidebar.page_link("pages/info.py", label="📜 Info")
-st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
-st.sidebar.page_link("pages/about.py", label="🔍 About Us")
+st.sidebar.page_link("main.py", label="Home 🔥")
+st.sidebar.page_link("pages/map.py", label="Map 🗺")
+st.sidebar.page_link("pages/data.py", label="Data 📊")
+st.sidebar.page_link("pages/chatbot.py", label="Chatbot 💬")
+st.sidebar.page_link("pages/about.py", label="About Us 🔍")
 
 img = Image.open("imgs/Smokey.jpeg").resize((300, 300))
-# Load and display title images | Display title
-img = Image.open("imgs/Smokey.jpeg").resize((300, 300))
-st.image(img)
-st.title("🔥🐻 Smokey Bot 🐻🔥")
+st.title("Smokey Bot 🐻🔥")
 
 with st.chat_message("assistant", avatar=img):
-    st.write(
-        "Hello! I'm Smokey the Bear Bot 🐻‍🔥, here to teach you about wildfires and how they impact our environment 🌍. I can help you understand wildfire prevention, the effects of wildfires on ecosystems, and even generate maps and visualizations to show fire risk areas 📊. Ask me anything, and let's keep our forests safe together! 🔥🌲"
-    )
+    st.markdown(
+        '<div style="font-size: 20px;">Hello! I\'m Smokey the Bear Bot 🐻‍🔥, here to teach you about wildfires and how they impact our environment 🌍. I can help you understand wildfire prevention, the effects of wildfires on ecosystems, and even generate maps and visualizations to show fire risk areas 📊. Ask me anything, and let\'s keep our forests safe together! 🔥🌲</div>'
+    , unsafe_allow_html=True)
 
 # Predefined responses
 predefined_answers = {
@@ -147,7 +143,7 @@ if option in predefined_answers and option not in ["Generate Wildfire Map", "Gen
 
 # Map Functionality
 elif option == "Generate Wildfire Map":
-    country = st.text_input("Enter Country Name")
+    country = st.selectbox("Select a country", list(countries.values()))
     if country:
         df = get_firms_data(country, 10)
         with st.chat_message("assistant", avatar=img):
@@ -156,7 +152,7 @@ elif option == "Generate Wildfire Map":
 
 # Data Functionality
 elif option == "Generate Wildfire Data":
-    country = st.text_input("Enter Country Name")
+    country = st.selectbox("Select a country", list(countries.values()))
     vis = st.selectbox(
         "What would you like to learn about?",
         ("",

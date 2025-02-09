@@ -3,9 +3,9 @@ import altair as alt
 
 from utils import get_firms_data, countries
 
-st.set_page_config(page_title="Data", page_icon="📊")
+st.set_page_config(page_title="Data", page_icon="📊", layout="wide")
 
-st.title("📊 Data")
+st.title("Data📊")
 
 hide_streamlit_style = """
     <style>
@@ -15,12 +15,11 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.sidebar.markdown("## Navigation")
-st.sidebar.page_link("main.py", label="🔥 Home")
-st.sidebar.page_link("pages/map.py", label="🗺️ Map")
-st.sidebar.page_link("pages/data.py", label="📊 Data")
-st.sidebar.page_link("pages/info.py", label="📜 Info")
-st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
-st.sidebar.page_link("pages/about.py", label="🔍 About Us")
+st.sidebar.page_link("main.py", label="Home 🔥")
+st.sidebar.page_link("pages/map.py", label="Map 🗺")
+st.sidebar.page_link("pages/data.py", label="Data 📊")
+st.sidebar.page_link("pages/chatbot.py", label="Chatbot 💬")
+st.sidebar.page_link("pages/about.py", label="About Us 🔍")
 
 country = st.selectbox("Select a country", list(countries.values()))
 
