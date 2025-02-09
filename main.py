@@ -96,3 +96,5 @@ else:
         )
 
     st.pydeck_chart(generate_map(df))
+
+    st.write("There are currently", len(df), "fires in your area.")
