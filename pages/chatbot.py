@@ -132,6 +132,9 @@ if option in predefined_answers and option not in ["Generate Map", "Generate Dat
     st.session_state.messages.append({"role": "assistant", "content": response})
     with st.chat_message("assistant", avatar=img):
         st.markdown(response)
+
+
+#Map Functionality
 elif option == "Generate Map":
     country = st.text_input("Enter Country Name")
     if country:
@@ -142,14 +145,19 @@ elif option == "Generate Map":
             )
         st.pydeck_chart(generate_map(df))
 
+#Data Functionality
 elif option == "Generate Data":
     country = st.text_input("Enter Country Name")
-    vis = st.sidebar.radio("Choose a Chart", [
+    vis = st.selectbox(
+        "What would you like to learn about?",
+        ("",
         "Fire Trends Over Time",
         "Fire Frequency vs. Intensity",
         "Fire Intensity Histogram",
-        "Fire Activity by Day",
-    ])
+        "Fire Activity by Day",),
+        index=0,
+        key="vis-selectbox"
+    )
     if country:
         df = get_firms_data(country, 10)
         plot_data = generate_plot(df, vis)
@@ -165,7 +173,7 @@ elif option == "Generate Data":
         elif option == "Fire Frequency vs. Intensity":
             st.subheader("Fire Frequency vs. Intensity")
             st.scatter_chart(plot_data, x="frp", y="bright_ti4", size="frp", color="bright_ti4")
-        #fire
+
         elif option == "Fire Intensity Histogram":
             chart = alt.Chart(plot_data).mark_bar().encode(
                 x="Intensity:Q",
