@@ -27,8 +27,8 @@ st.sidebar.page_link("pages/about.py", label="🔍 About Us")
 
 location = geocoder.ip('me').latlng
 print(location)
-latitude = location[0]
-longitude = location[1]
+latitude = 35.9132
+longitude = -79.0558
 
 @st.cache_data
 def get_location_data():
