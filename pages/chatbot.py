@@ -165,7 +165,7 @@ elif option == "Generate Data":
         elif option == "Fire Frequency vs. Intensity":
             st.subheader("Fire Frequency vs. Intensity")
             st.scatter_chart(plot_data, x="frp", y="bright_ti4", size="frp", color="bright_ti4")
-
+        #fire
         elif option == "Fire Intensity Histogram":
             chart = alt.Chart(plot_data).mark_bar().encode(
                 x="Intensity:Q",
