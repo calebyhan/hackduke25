@@ -83,7 +83,6 @@ def generate_plot(df, option):
     if option == "Fire Trends Over Time":
         fires_per_day = df.groupby("acq_date").size().reset_index(name="count")
         return fires_per_day.set_index("acq_date")
-
     elif option == "Fire Frequency vs. Intensity":
         return df
 
@@ -161,20 +160,16 @@ elif option == "Generate Data":
     if country:
         df = get_firms_data(country, 10)
         plot_data = generate_plot(df, vis)
-        with st.chat_message("assistant", avatar=img):
-            st.write(
-                f"Let's learn about the fires in {country} over the last 10 days."
-            )
-        st.write(plot_data)
-        if option == "Fire Trends Over Time":
+
+        if vis == "Fire Trends Over Time":
             st.subheader("Fire Detections Over Time")
             st.line_chart(plot_data)
 
-        elif option == "Fire Frequency vs. Intensity":
+        elif vis == "Fire Frequency vs. Intensity":
             st.subheader("Fire Frequency vs. Intensity")
             st.scatter_chart(plot_data, x="frp", y="bright_ti4", size="frp", color="bright_ti4")
 
-        elif option == "Fire Intensity Histogram":
+        elif vis == "Fire Intensity Histogram":
             chart = alt.Chart(plot_data).mark_bar().encode(
                 x="Intensity:Q",
                 y="Count:Q"
@@ -183,9 +178,14 @@ elif option == "Generate Data":
             )
             st.altair_chart(chart, use_container_width=True)
 
-        elif option == "Fire Activity by Day":
+        elif vis == "Fire Activity by Day":
             st.subheader("Fire Activity by Day")
             st.bar_chart(plot_data)
+
+        on = st.toggle("Display DataFrame")
+
+        if on:
+            st.dataframe(df)
 
         st.markdown(
             """
