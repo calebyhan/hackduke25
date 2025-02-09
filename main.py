@@ -3,8 +3,7 @@ import requests
 import io
 import pandas as pd
 import pydeck as pdk
-from streamlit_js_eval import get_geolocation
-
+import geocoder
 from utils import FIRMS_KEY, url
 
 st.set_page_config(page_title="Wildfires", page_icon="🔥")
@@ -26,10 +25,10 @@ st.sidebar.page_link("pages/info.py", label="📜 Info")
 st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
 st.sidebar.page_link("pages/about.py", label="🔍 About Us")
 
-location = get_geolocation()["coords"]
+location = geocoder.ip('me').latlng
 print(location)
-latitude = location["latitude"]
-longitude = location["longitude"]
+latitude = location[0]
+longitude = location[1]
 
 @st.cache_data
 def get_location_data():
