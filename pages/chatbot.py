@@ -22,16 +22,16 @@ st.sidebar.markdown("## Navigation")
 st.sidebar.page_link("main.py", label="🔥 Home")
 st.sidebar.page_link("pages/map.py", label="🗺️ Map")
 st.sidebar.page_link("pages/data.py", label="📊 Data")
-st.sidebar.page_link("pages/info.py", label="🐜 Info")
+st.sidebar.page_link("pages/info.py", label="📜 Info")
 st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
 st.sidebar.page_link("pages/about.py", label="🔍 About Us")
 
+img = Image.open("imgs/Smokey.jpeg").resize((300, 300))
 # Load and display title images | Display title
 img = Image.open("imgs/Smokey.jpeg").resize((300, 300))
 st.image(img)
 st.title("🔥🐻 Smokey Bot 🐻🔥")
 
-# Default assistant message
 with st.chat_message("assistant", avatar=img):
     st.write(
         "Hello! I'm Smokey the Bear Bot, here to answer your questions about wildfire prevention and the Smokey Bear campaign. Ask me anything!"
@@ -106,6 +106,7 @@ def response_generator(msg):
     return full_response
 
 # OpenAI setup
+
 open_ai_key = st.secrets["OPENAI_API_KEY"]
 client = OpenAI(api_key=open_ai_key)
 
