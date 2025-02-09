@@ -4,3 +4,4 @@ pillow==11.1.0
 requests==2.32.3
 pandas==2.2.3
 numpy==2.2.2
+pydeck~=0.9.1

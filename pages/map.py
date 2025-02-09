@@ -1,10 +1,9 @@
 import streamlit as st
-import requests
-import io
-import pandas as pd
 import pydeck as pdk
 import numpy as np
 from PIL import Image
+
+from utils import get_firms_data
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Map", page_icon="️🗺")
@@ -37,30 +36,6 @@ if __name__ == "__main__":
         country = "the world"
 
     day_range = st.slider("Select a day range", 1, 10, 1)
-
-    @st.cache_data
-    def get_firms_data(c, days):
-        if c == "the world":
-            response = requests.get(f"{url}/area/csv/{FIRMS_KEY}/VIIRS_SNPP_NRT/world/{days}")
-
-            if response.status_code == 200:
-                csv_data = response.text
-                df = pd.read_csv(io.StringIO(csv_data))
-                return df
-            else:
-                st.error("Failed to fetch data. Check API key or try again later.")
-                return pd.DataFrame()
-        else:
-            code = list(countries.keys())[list(countries.values()).index(c)]
-            response = requests.get(f"{url}/country/csv/{FIRMS_KEY}/VIIRS_SNPP_NRT/{code}/{days}")
-
-            if response.status_code == 200:
-                csv_data = response.text
-                df = pd.read_csv(io.StringIO(csv_data))
-                return df
-            else:
-                st.error("Failed to fetch data. Check API key or try again later.")
-                return pd.DataFrame()
 
     df = get_firms_data(country, day_range)
 
