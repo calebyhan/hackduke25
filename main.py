@@ -36,7 +36,6 @@ def get_location_data():
 
     if response.status_code == 200:
         csv_data = response.text
-        print(csv_data)
         df = pd.read_csv(io.StringIO(csv_data))
         return df
     else:
