@@ -41,6 +41,27 @@ else:
     else:
         st.subheader(f"FIRMS data for {country}, for the last {str(day_range)} days.")
 
+
+    @st.cache_data
+    def generate_plot(df, option):
+        if option == "Fire Trends Over Time":
+            fires_per_day = df.groupby("acq_date").size().reset_index(name="count")
+            return fires_per_day.set_index("acq_date")
+
+        elif option == "Fire Frequency vs. Intensity":
+            return df
+
+        elif option == "Fire Intensity Histogram":
+            hist_data = df["bright_ti5"].value_counts().reset_index()
+            hist_data.columns = ["Intensity", "Count"]
+            return hist_data
+
+        elif option == "Fire Activity by Day":
+            fires_per_day = df.groupby("acq_date").size().reset_index(name="count")
+            return fires_per_day.set_index("acq_date")
+
+
+
     @st.cache_resource
     def generate_map(df):
         @st.cache_data
