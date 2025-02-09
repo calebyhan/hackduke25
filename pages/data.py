@@ -1,4 +1,5 @@
 import streamlit as st
+import altair as alt
 
 from utils import get_firms_data
 
@@ -56,8 +57,17 @@ else:
         st.scatter_chart(df, x="frp", y="bright_ti4", size="frp", color="bright_ti4")
 
     elif option == "Fire Intensity Histogram":
-        st.subheader("Fire Intensity Distribution")
-        st.bar_chart(df["bright_ti4"].value_counts().sort_index())
+        hist_data = df["bright_ti5"].value_counts().reset_index()
+        hist_data.columns = ["Intensity", "Count"]
+
+        chart = alt.Chart(hist_data).mark_bar().encode(
+            x="Intensity:Q",
+            y="Count:Q"
+        ).properties(
+            height=300  # Set the height manually
+        )
+
+        st.altair_chart(chart, use_container_width=True)
 
     elif option == "Fire Activity by Day":
         st.subheader("Fire Activity by Day")

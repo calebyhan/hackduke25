@@ -49,14 +49,14 @@ if __name__ == "__main__":
 
 
         def get_color_from_brightness(brightness):
-            normalized = min(max(brightness, 290), 400)
-            scale = int(255 * (normalized - 290) / 110)
+            normalized = min(max(brightness, 220), 400)
+            scale = int(255 * (normalized - 220) / 110)
 
             return [255, 255 - scale, 0]
 
 
-        if "bright_ti4" in df.columns:
-            df["color"] = df["bright_ti4"].apply(get_color_from_brightness)
+        if "bright_ti5" in df.columns:
+            df["color"] = df["bright_ti5"].apply(get_color_from_brightness)
 
         st.pydeck_chart(
             pdk.Deck(
@@ -87,13 +87,13 @@ if __name__ == "__main__":
 
             return Image.fromarray(gradient)
 
-        st.write("Brightness Temperature (TI4) Scale")
+        st.write("Brightness Temperature (TI5) Scale")
         gradient_img = generate_gradient()
         st.image(gradient_img, caption="Low (290K) → High (400K)", use_container_width=True)
 
         st.markdown(
             """
-            Each colored dot indicates an active fire. The color of the dot represents the brightness temperature (TI4) of the fire.
+            Each colored dot indicates an active fire. The color of the dot represents the brightness temperature (TI5) of the fire.
             
             **Note:** FIRMS data is provided by [NASA's Fire Information for Resource Management System (FIRMS)](https://firms.modaps.eosdis.nasa.gov/).
             """
