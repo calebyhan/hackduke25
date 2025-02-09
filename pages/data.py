@@ -1,6 +1,6 @@
 import streamlit as st
 
-from map import get_firms_data
+from pages.map import get_firms_data
 
 
 st.set_page_config(page_title="Data", page_icon="📊")
