@@ -26,7 +26,6 @@ st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
 st.sidebar.page_link("pages/about.py", label="🔍 About Us")
 
 location = geocoder.ip('me').latlng
-print(location)
 latitude = 35.9132
 longitude = -79.0558
 
@@ -91,13 +90,23 @@ else:
                     get_radius=10000,
                     get_color="color",
                     opacity=0.8,
-                )
+                ),
+                pdk.Layer(
+                    "ScatterplotLayer",
+                    data=pd.DataFrame({"latitude": [latitude], "longitude": [longitude]}),
+                    get_position=["longitude", "latitude"],
+                    get_radius=20000,  # Larger radius for visibility
+                    get_color=[0, 0, 255],  # Blue color
+                    opacity=1.0,
+                ),
             ],
         )
 
     st.pydeck_chart(generate_map(df))
 
     if int(len(df)) == 1:
-        st.write("There is currently", int(len(df)), "fire in your area.")
+        st.write("There is currently", str(len(df)), "fire in your area.")
     else:
-        st.write("There are currently", int(len(df)), "fires in your area.")
+        st.write("There are currently", str(len(df)), "fires in your area.")
+
+    st.write("To excise necessary caution, please take a look at where fires are around you.")

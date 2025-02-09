@@ -1,6 +1,7 @@
 import streamlit as st
 import pydeck as pdk
 import numpy as np
+import pandas as pd
 from PIL import Image
 
 from utils import get_firms_data, countries
@@ -32,6 +33,8 @@ if st.checkbox("Select whole world"):
 day_range = st.slider("Select a day range", 1, 10, 1)
 
 df = get_firms_data(country, day_range)
+latitude = 35.9132
+longitude = -79.0558
 
 if df.empty:
     st.warning("No data available for the selected country and day range.")
@@ -81,7 +84,15 @@ else:
                     get_radius=10000,
                     get_color="color",
                     opacity=0.8,
-                )
+                ),
+                pdk.Layer(
+                    "ScatterplotLayer",
+                    data=pd.DataFrame({"latitude": [latitude], "longitude": [longitude]}),
+                    get_position=["longitude", "latitude"],
+                    get_radius=20000,  # Larger radius for visibility
+                    get_color=[0, 0, 255],  # Blue color
+                    opacity=1.0,
+                ),
             ],
         )
 
