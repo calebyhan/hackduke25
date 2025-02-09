@@ -6,13 +6,6 @@ from PIL import Image
 #Set up page
 st.set_page_config(page_title="Chatbot", page_icon="💬")
 
-# Load and display title images | Display title
-img = Image.open("imgs/Smokey.jpeg")
-new_size = (300, 300)
-img = img.resize(new_size)
-st.image(img)
-st.title("🐻🔥Smokey Bot")
-
 #Sidebar
 hide_streamlit_style = """
     <style>
@@ -29,6 +22,17 @@ st.sidebar.page_link("pages/info.py", label="📜 Info")
 st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
 st.sidebar.page_link("pages/about.py", label="🔍 About Us")
 
+# Load and display title images | Display title
+img = Image.open("imgs/Smokey.jpeg")
+new_size = (300, 300)
+img = img.resize(new_size)
+st.image(img)
+st.title("🔥🐻 Smokey Bot 🐻🔥")
+
+# Default assistant message
+with st.chat_message("Wildfire Bot", avatar=img):
+    response = st.write("Hello! I'm Smokey the Bear Bot, here to answer your questions about wildfire prevention and the Smokey Bear campaign. Ask me anything!")
+
 
 # Mapping pre-defined input-outputs
 predefined_answers = {
@@ -36,6 +40,18 @@ predefined_answers = {
     "How can I prevent wildfires?": "To prevent wildfires, remember the slogan: 'Only you can prevent wildfires.' Make sure to put out campfires completely, avoid burning during dry conditions, and properly dispose of cigarettes.",
     "What is the Smokey Bear campaign?": "The Smokey Bear campaign is the longest-running public service campaign in the United States, aimed at educating the public about wildfire prevention."
 }
+
+option = st.selectbox(
+    "What would you like to learn about?",
+    ("","What is Smokey the Bear?", "More Fires", "Even More Fires"),
+)
+if option in predefined_answers:
+    with st.chat_message("Wildfire Bot", avatar=img):
+        response = st.write(predefined_answers[option])
+
+else:
+    st.write("Please select an option from the list.")
+
 
 def response_generator(msg):
     '''Displays responses with a typing effect'''
@@ -62,12 +78,6 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Default assistant message
-with st.chat_message("Wildfire Bot", avatar=img):
-    response = st.write("Hey there, I'm Smokey the Bear! 🐻🔥 Here to help you learn how to prevent wildfires and keep our forests safe! Remember, only YOU can prevent forest fires! Let's keep it green and clean together! 🌲💚💪")
-
-
-# Handling user input
 # Handling user input with a defined personality for OpenAI responses
 if prompt := st.chat_input("Chat with Smokey the Bear"):
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -82,7 +92,6 @@ if prompt := st.chat_input("Chat with Smokey the Bear"):
             st.markdown(response)
     else:
         # Custom personality prompt for OpenAI
-        # Custom personality prompt for OpenAI with fixed syntax
         with st.chat_message("Smokey the Bear", avatar = img):
             messages = [
                 {"role": "system",
@@ -104,6 +113,9 @@ if prompt := st.chat_input("Chat with Smokey the Bear"):
             response = st.write_stream(stream)
             st.session_state.messages.append({"role": "assistant", "content": response})
 
+
 #Button to reset chat
 if st.button("Reset Chat"):
     st.session_state.messages = []
+
+
