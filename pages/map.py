@@ -41,7 +41,6 @@ else:
     else:
         st.subheader(f"FIRMS data for {country}, for the last {str(day_range)} days.")
 
-
     @st.cache_data
     def generate_plot(df, option):
         if option == "Fire Trends Over Time":
@@ -59,8 +58,6 @@ else:
         elif option == "Fire Activity by Day":
             fires_per_day = df.groupby("acq_date").size().reset_index(name="count")
             return fires_per_day.set_index("acq_date")
-
-
 
     @st.cache_resource
     def generate_map(df):
