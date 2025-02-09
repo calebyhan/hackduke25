@@ -3,10 +3,18 @@ import streamlit as st
 st.set_page_config(page_title="Wildfires", page_icon="🔥")
 
 st.title("🔥 Wildfires 🔥")
-st.write("Lately, wildfires have been prevalent globally, the most recent incident being the L.A. fires. "
-         "Due to the wildfires, thousands of people lost their homes and became displaced. Wildfires also pose an extreme "
-         "health threat, especially for individuals who already experience preexisting respiratory issues. "
-         "The L.A. fire is considered one of the most costly fires in U.S. history, being over $200 billion in losses.")
+st.write("Wildfires have been prevalent throughout the world, the most recent incident being in Los Angeles, "
+         "California. The L.A. wildfires began earlier this year on January 7th and nearly took firefighters "
+         "the entire month of January to contain and stop the spread of the fire. Due to the wildfires, "
+         "thousands of people lost their homes and at least 29 people died trying to protect their homes and "
+         "loved ones. In addition to the thousands of people being displaced, L.A. experienced a tremendous "
+         "economic loss, costing over $200 billion, and is considered one of the most costly fires in U.S. "
+         "history. Wildfires are extremely difficult to control, giving residents and visitors little to no "
+         "time to evacuate quickly; the short notice caused chaos and difficulty for residents to leave safely "
+         "as well. Aside from tangible issues that wildfires cause, they can also lead to long-term problems. "
+         "Wildfires can pose an extreme health threat, especially for individuals who already experience "
+         "preexisting respiratory issues. Excessive smoke inhalation can be dangerous leading to lung "
+         "irritation, asthma attacks, and in severe cases, chronic lung diseases.")
 
 hide_streamlit_style = """
     <style>
