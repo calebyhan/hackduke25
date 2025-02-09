@@ -83,6 +83,11 @@ else:
         st.subheader("Fire Activity by Day")
         st.bar_chart(plot_data)
 
+    on = st.toggle("Display DataFrame")
+
+    if on:
+        st.dataframe(df)
+
     st.markdown(
         """
         **Note:** FIRMS data is provided by [NASA's Fire Information for Resource Management System (FIRMS)](https://firms.modaps.eosdis.nasa.gov/).

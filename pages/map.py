@@ -106,6 +106,11 @@ else:
     gradient_img = generate_gradient()
     st.image(gradient_img, caption="Low (290K) → High (400K)", use_container_width=True)
 
+    on = st.toggle("Display DataFrame")
+
+    if on:
+        st.dataframe(df)
+
     st.markdown(
         """
         Each colored dot indicates an active fire. The color of the dot represents the brightness temperature (TI5) of the fire.
