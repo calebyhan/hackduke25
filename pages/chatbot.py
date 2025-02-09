@@ -123,7 +123,7 @@ if "openai_model" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display previous messages
+# Display all previous messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"], avatar=img if message["role"] == "assistant" else None):
         st.markdown(message["content"])
