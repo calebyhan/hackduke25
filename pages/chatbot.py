@@ -39,9 +39,17 @@ with st.chat_message("assistant", avatar=img):
 
 # Predefined responses
 predefined_answers = {
-    "Generate Map": "Smokey the Bear is a fictional bear mascot of the U.S. Forest Service, created to raise awareness about forest fire prevention.",
-    "Generate Data": "To prevent wildfires, remember the slogan: 'Only you can prevent wildfires.' Make sure to put out campfires completely, avoid burning during dry conditions, and properly dispose of cigarettes.",
-    "What is the Smokey Bear campaign?": "The Smokey Bear campaign is the longest-running public service campaign in the United States, aimed at educating the public about wildfire prevention."
+    "Generate Wildfire Map": "🌍 Hey there! Smokey here—wildfires are a serious issue 🌲🔥. I can help you generate a map of recent fire activity 🌐. Just let me know which country you'd like to focus on! 🌎",
+    "Generate Wildfire Data": "🔎 Smokey's on the case! Let's take a look at some fire-related data 📊. What would you like to explore today? 🔥🌲",
+    "What is the environmental impact of wildfires?": "🔥🌍 Wildfires are tough on the environment. They destroy habitats 🦉, harm wildlife 🦅, and release carbon dioxide 🏭 into the atmosphere, adding to climate change. So remember, ‘Only you can prevent wildfires!’ 🐻🌲",
+    "What are firebreaks?": "🚧 Firebreaks are cleared areas where vegetation is removed to stop wildfires 🛑 from spreading. Think of them like fire’s natural roadblock—just like how Smokey stops a bear from wandering into camp! 🐻⛔",
+    "What is a controlled burn?": "🔥 Controlled burns are planned fires 🔥 set by professionals to help reduce excess vegetation 🌱. It’s like cleaning up your campsite to make it safer 🏕️. Smart, right? 🌲🔥",
+    "How do wildfires affect air quality?": "😷 Wildfire smoke can really affect air quality 🏞️. It releases harmful particles 🦠 that can cause respiratory problems 🌬️, especially for kids 👶, the elderly 👵, and people with asthma 💨. Stay safe, friends! 🐻💨",
+    "What laws govern wildfire prevention?": "⚖️ There are laws 📝 to protect us from wildfires! They include clearing dry vegetation 🌾 and regulating open burning 🔥 during fire season 🚫. As Smokey says, ‘Preventing fires is everyone’s job!’ 👨‍🚒🐻",
+    "What is the role of satellite data in wildfire management?": "🚀 Satellite data is like having a bird's-eye view 👀 of wildfires 🌍. It helps track fire spread 🔥, assess damage 💔, and inform firefighting strategies ⛑️. It's one of the coolest tools Smokey uses to stay ahead of the game! 🐻🌐",
+    "How does wildfire smoke impact health?": "😷 That smoky haze isn't just bad for your eyes 👀—it can harm your lungs 💔. Stay indoors 🏠 or wear a mask 😷 to protect yourself when the air’s filled with smoke 🌫️. Smokey says, ‘Breathe easy, stay safe!’ 🐻🌬️",
+    "What is the role of technology in wildfire detection?": "💻 Tech is a game-changer when it comes to detecting wildfires 🔥. Drones 🚁 and sensors 🛰️ help us spot fires early 🕒 so we can respond quickly 🚨 and stop them before they get out of control. Smokey approves! 🐻🔍",
+    "What are the legal consequences of illegal burning?": "🚫 Illegal burning 🔥 can lead to big penalties ⚖️—like fines 💸 or even jail time 🏚️ if it harms people 👥 or property 🏡. Smokey always says, ‘Play it safe—don’t play with fire!’ 🔥🐻"
 }
 
 # First selectbox
@@ -121,7 +129,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # Handle predefined selection
-if option in predefined_answers and option not in ["Generate Map", "Generate Data"]:
+if option in predefined_answers and option not in ["Generate Wildfire Map", "Generate Wildfire Data"]:
     prompt = option
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -132,20 +140,17 @@ if option in predefined_answers and option not in ["Generate Map", "Generate Dat
     with st.chat_message("assistant", avatar=img):
         st.markdown(response)
 
-
-#Map Functionality
-elif option == "Generate Map":
+# Map Functionality
+elif option == "Generate Wildfire Map":
     country = st.text_input("Enter Country Name")
     if country:
         df = get_firms_data(country, 10)
         with st.chat_message("assistant", avatar=img):
-            st.write(
-                f"Let's take a look at the fires in {country} over the last 10 days."
-            )
+            st.write(f"Let's take a look at the fires in {country} over the last 10 days.")
         st.pydeck_chart(generate_map(df))
 
-#Data Functionality
-elif option == "Generate Data":
+# Data Functionality
+elif option == "Generate Wildfire Data":
     country = st.text_input("Enter Country Name")
     vis = st.selectbox(
         "What would you like to learn about?",
@@ -157,6 +162,10 @@ elif option == "Generate Data":
         index=0,
         key="vis-selectbox"
     )
+    with st.chat_message("assistant", avatar=img):
+        st.write(
+            response_generator(f"Let's learn about the fires in {country} over the last 10 days.")
+        )
     if country:
         df = get_firms_data(country, 10)
         plot_data = generate_plot(df, vis)
@@ -193,6 +202,7 @@ elif option == "Generate Data":
             """
         )
 
+
 # Chat input
 prompt = st.chat_input("Chat with Smokey the Bear")
 
@@ -209,19 +219,33 @@ if prompt:
             st.session_state.messages.append({"role": "assistant", "content": response})
             with st.chat_message("assistant", avatar=img):
                 st.markdown(response)
-        else:
-            with st.chat_message("assistant", avatar=img):
-                stream = client.chat.completions.create(
-                    model=st.session_state["openai_model"],
-                    messages=[
+
+        # OpenAI setup with Smokey's personality instructions and emojis
+        if prompt and prompt not in predefined_answers:
+
+            # Adjust OpenAI request to reflect Smokey's style with emojis
+            stream = client.chat.completions.create(
+                model=st.session_state["openai_model"],
+                messages=[
+                    {"role": "system",
+                     "content": "You are Smokey the Bear. Speak in a friendly, educational, and slightly casual manner, always promoting wildfire safety with a lot of fun emojis. Use phrases like 'Only you can prevent wildfires' and provide helpful, positive guidance. 🐻🔥🌲"},
+                    {"role": "user", "content": prompt},
+                    *[
                         {"role": m["role"], "content": m["content"]}
                         for m in st.session_state.messages
                     ],
-                    stream=True,
-                )
+                ],
+                stream=True,
+            )
+
+            # Generate and display the response with emojis
+            with st.chat_message("assistant", avatar=img):
                 response = st.write_stream(stream)
-            st.session_state.messages.append({"role": "assistant", "content": response})
+                st.session_state.messages.append({"role": "assistant", "content": response})
+
 
 # Reset chat button
 if st.button("Reset Chat"):
+    # Clear the session state for messages
     st.session_state.messages = []
+
