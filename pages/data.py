@@ -1,8 +1,6 @@
 import streamlit as st
-import pandas as pd
-import pydeck as pdk
 
-from pages.map import get_firms_data
+from map import get_firms_data
 
 
 st.set_page_config(page_title="Data", page_icon="📊")
