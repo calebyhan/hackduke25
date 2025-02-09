@@ -3,7 +3,6 @@ import streamlit as st
 st.set_page_config(page_title="Info", page_icon="📜")
 
 st.title("📜 Info")
-st.write("Search functionality goes here.")
 
 hide_streamlit_style = """
     <style>
@@ -19,3 +18,4 @@ st.sidebar.page_link("pages/data.py", label="📊 Data")
 st.sidebar.page_link("pages/info.py", label="📜 Info")
 st.sidebar.page_link("pages/chatbot.py", label="💬 Chatbot")
 st.sidebar.page_link("pages/about.py", label="🔍 About Us")
+
